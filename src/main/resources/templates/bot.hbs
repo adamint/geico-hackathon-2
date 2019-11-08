@@ -61,7 +61,7 @@
         var message = $("#message");
 
         $.get("/bot/respond", {
-                    input: message.val(),
+                    input: message.val()
                 },
                 function (data) {
                     if (data.status !== "") {

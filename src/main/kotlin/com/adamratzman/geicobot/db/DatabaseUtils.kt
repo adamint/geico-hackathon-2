@@ -27,7 +27,7 @@ fun getUser(id: String): User {
 }
 
 fun update(table: String, id: String, any: Any) {
-    r.db("geico").table(table).get(id).update(r.json(gson.toJson(any)))
+    r.db("geico").table(table).get(id).update(r.json(gson.toJson(any))).run<Any>(connection)
 }
 
 fun insert(table: String, any: Any) {
