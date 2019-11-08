@@ -1,0 +1,1 @@
+docker run -d -p 28015:28015 --name rethinkdb rethinkdb

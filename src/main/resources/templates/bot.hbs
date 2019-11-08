@@ -1,0 +1,78 @@
+{{> partials/header.hbs }}
+
+<div class="uk-padding-remove-bottom" style="margin-top: 6.5%">
+    <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center">{{botName}}</h2>
+    <p class="light uk-margin-small-top uk-text-center">See some
+        <a class="bold" href="#examples-modal" uk-toggle>examples</a>
+        of what I can do for you!</p>
+
+    <div id="output" class="uk-margin-auto uk-margin-small-bottom uk-width-1-2"
+         style="overflow-y: scroll; border: 1px dotted black; height: 45%">
+        <h3 id="nothing">Send me a message below..</h3>
+    </div>
+
+    <div id="input" class="uk-width-1-2 uk-margin-auto">
+        <div class="uk-margin-small-bottom">
+            <p class="uk-inline uk-margin-small-right uk-margin-auto-vertical"><b>Input</b></p>
+            <input id="message" type="text" placeholder="Type a message here..."
+                   class="uk-input uk-width-2-3 uk-inline uk-margin-small-right">
+            <button class="uk-button uk-button-primary uk-width-auto" onclick="post()">Send</button>
+        </div>
+
+        <br />
+        <button name="Clear" class="uk-button uk-button-primary" onclick="clearOutput();">Clear</button>
+    </div>
+
+    <br />
+    <br/>
+    <br/>
+</div>
+
+<div id="examples-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Examples</h2>
+        <ul class="uk-list uk-list-bullet">
+            {{#each examples}}
+                <li><b>{{first}}</b>: {{second}}</li>
+            {{/each}}
+        </ul>
+
+        <p class="uk-text-right">
+            <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
+        </p>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script>
+    function clearOutput() {
+        $("#output").empty()
+    }
+
+    $("#expression").keypress(function (key) {
+        if (key.which === 13) post()
+    });
+
+    function post() {
+        var message = $("#message");
+
+        $.get("/bot/respond", {
+                    input: message.val(),
+                },
+                function (data) {
+                    if (data.status !== "") {
+                        $("#nothing").remove();
+                        var result = $("<p class='uk-margin-remove-bottom uk-margin-remove-top'" +
+                                " style='font-size: 1.3rem;'><b>" + message.val() + "</b>: <em>" + data.response + "</em></p>");
+                        message.val("");
+                        $("#output").append(result);
+                    } else UIkit.notification(data.response, 'danger');
+                }, "json")
+    }
+</script>
+
+{{> partials/footer.hbs }}
