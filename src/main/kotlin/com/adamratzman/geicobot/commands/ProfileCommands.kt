@@ -27,3 +27,25 @@ class SetNickname : Command(Category.PROFILE, "set my nickname to", "set your ni
         }
     }
 }
+
+@AutowiredCommand
+class GetBio : Command(Category.PROFILE, "what's my bio", "get your current bio", "lex.getbio") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val nickname = session.getUser().bio
+        nickname?.let { consumer("Your bio is <b>$nickname</b>") } ?: consumer("You don't have a set bio!")
+    }
+}
+
+@AutowiredCommand
+class SetBio : Command(Category.PROFILE, "set my bio to", "set your bio", "lex.setbio") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val split = input.splitSpaces().removeFirstItems(4)
+        if (split.isEmpty()) consumer("You need to put in a bio!")
+        else {
+            val user = session.getUser()
+            user.bio = split.concat()
+            update("users", user.id, user)
+            consumer("Updated your bio. Your bio is now <b>${user.bio}</b>")
+        }
+    }
+}
