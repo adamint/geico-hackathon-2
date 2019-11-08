@@ -25,9 +25,13 @@ val commandFactory = CommandFactory()
 val botName = "GEICObot"
 
 lateinit var cleverbotKey: String
+lateinit var awsPublic: String
+lateinit var awsPrivate: String
 
 fun main(args: Array<String>) {
     cleverbotKey = args[0]
+    awsPublic = args[1]
+    awsPrivate = args[2]
 
     port(getHerokuAssignedPort())
     val staticFileHandler = StaticFilesConfiguration()
