@@ -1,6 +1,6 @@
 package com.adamratzman.geicobot.db
 
-import com.adamratzman.geicobot.chat.CleverbotResponse
+import com.adamratzman.geicobot.chat.Dialog
 
 data class User(
     val id: String,
@@ -8,7 +8,8 @@ data class User(
     val friends: MutableList<String> = mutableListOf(),
     val friendRequestsReceived: MutableList<String> = mutableListOf(),
     val friendRequestsSent: MutableList<String> = mutableListOf(),
-    val conversation: MutableList<CleverbotResponse> = mutableListOf()
+    val conversation: MutableList<Dialog> = mutableListOf(),
+    var bio: String? = null
 )
 
 data class RecentlyPlayed(

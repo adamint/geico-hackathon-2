@@ -57,12 +57,12 @@ class GeicoBot {
         bot()
         databaseSetup()
         spotifyCallback()
+        profile()
 
         scraper = getNewScraper()
     }
 
 }
-
 
 private fun registerHelpers() {
     val field = handlebars::class.java.getDeclaredField("handlebars")
@@ -87,7 +87,7 @@ internal fun getMap(
     map["page"] = pageId
     map["position-bottom"] = positionBottom
     map["color"] = getRandomColor()
-
+    map["spotify"] = request.session().attribute("spotify")
     map["botName"] = botName
 
     map["profile"] = request.session().attribute<Any?>("spotify") != null

@@ -16,6 +16,20 @@ fun databaseSetup() {
     }
 }
 
-fun getUser(id: String): User? {
-    return asPojo(gson, r.db("geico").table("users").get(id).run(connection), User::class.java)
+fun getUser(id: String): User {
+    var user = asPojo(gson, r.db("geico").table("users").get(id).run(connection), User::class.java)
+    if (user == null) {
+        user = User(id)
+        insert("users", user)
+    }
+
+    return user
+}
+
+fun update(table: String, id: String, any: Any) {
+    r.db("geico").table(table).get(id).update(r.json(gson.toJson(any)))
+}
+
+fun insert(table: String, any: Any) {
+    r.db("geico").table(table).insert(r.json(gson.toJson(any))).run<Any>(connection)
 }

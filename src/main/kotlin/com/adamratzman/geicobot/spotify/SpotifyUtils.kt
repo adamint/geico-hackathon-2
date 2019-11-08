@@ -1,10 +1,13 @@
 package com.adamratzman.geicobot.spotify
 
+import com.adamratzman.geicobot.db.User
+import com.adamratzman.geicobot.db.getUser
 import com.adamratzman.spotify.SpotifyScope
 import com.adamratzman.spotify.spotifyAppApi
 import com.adamratzman.spotify.spotifyClientApi
 import spark.Request
 import spark.Response
+import spark.Session
 
 val sId = "9e0323b3b595424fae96001d752f9638"
 val sPassword = "1f8911e216a4476ca973c5a622fc15bd"
@@ -42,3 +45,5 @@ fun assureLoggedIn(request: Request, response: Response): Boolean {
         false
     } else true
 }
+
+fun Session.getUser():User = getUser(attribute<String>("userId"))
