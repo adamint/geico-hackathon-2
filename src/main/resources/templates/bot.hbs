@@ -1,25 +1,31 @@
+{{!-- {{Header}} --}}
 {{> partials/header.hbs }}
 
+{{!-- {{Title, Subtitle}} --}}
 <div class="uk-padding-remove-bottom" style="margin-top: 6.5%">
     <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center">{{botName}}</h2>
     <p class="light uk-margin-small-top uk-text-center">See some
         <a class="bold" href="#examples-modal" uk-toggle>examples</a>
         of what I can do for you!</p>
 
+    {{!-- {{Chat Box}} --}}
     <div id="output" class="uk-margin-auto uk-margin-small-bottom uk-width-1-2"
          style="overflow-y: scroll; border: 1px dotted black; height: 45%">
         <h3 id="nothing">Send me a message below..</h3>
     </div>
 
+{{!-- {{Input Box}} --}}
     <div id="input" class="uk-width-1-2 uk-margin-auto">
         <div class="uk-margin-small-bottom">
             <p class="uk-inline uk-margin-small-right uk-margin-auto-vertical"><b>Input</b></p>
             <input id="message" type="text" placeholder="Type a message here..."
                    class="uk-input uk-width-2-3 uk-inline uk-margin-small-right">
+            {{!-- {{Send Button}} --}}
             <button class="uk-button uk-button-primary uk-width-auto" onclick="post()">Send</button>
         </div>
 
         <br />
+        {{!-- {{Clear Button}} --}}
         <button name="Clear" class="uk-button uk-button-primary" onclick="clearOutput();">Clear</button>
     </div>
 
@@ -49,14 +55,17 @@
         crossorigin="anonymous"></script>
 
 <script>
+    {{!-- {{For clear button}} --}}
     function clearOutput() {
         $("#output").empty()
     }
 
+    {{!-- {{TODO: Fix enter/return press for submitting text input, currently does not work}} --}}
     $("#expression").keypress(function (key) {
         if (key.which === 13) post()
     });
 
+    {{!-- {{Sends text input to the AI}} --}}
     function post() {
         var message = $("#message");
 
@@ -66,8 +75,7 @@
                 function (data) {
                     if (data.status !== "") {
                         $("#nothing").remove();
-                        var result = $("<p class='uk-margin-remove-bottom uk-margin-remove-top'" +
-                                " style='font-size: 1.3rem;'><b>" + message.val() + "</b>: <em>" + data.response + "</em></p>");
+                        var result = $("<p class='uk-margin-remove-bottom uk-margin-remove-top' style='font-size: 1.3rem'><b>" + message.val() + "</b> <br> <em>" + data.response + "</em></p>");
                         message.val("");
                         $("#output").append(result);
                     } else UIkit.notification(data.response, 'danger');
