@@ -2,9 +2,6 @@ package com.adamratzman.geicobot.http
 
 import com.adamratzman.geicobot.*
 import com.adamratzman.geicobot.chat.CleverbotResponse
-import com.adamratzman.geicobot.chat.respond
-import com.adamratzman.geicobot.chat.scraper
-import com.adamratzman.geicobot.getMap
 import com.adamratzman.geicobot.spotify.assureLoggedIn
 import spark.Spark.get
 import spark.Spark.path

@@ -1,7 +1,5 @@
 package com.adamratzman.geicobot
 
-import com.adamratzman.geicobot.chat.getNewScraper
-import com.adamratzman.geicobot.chat.scraper
 import com.adamratzman.geicobot.db.databaseSetup
 import com.adamratzman.geicobot.http.*
 import com.adamratzman.geicobot.system.CommandFactory
@@ -26,8 +24,10 @@ val commandFactory = CommandFactory()
 
 val botName = "GEICObot"
 
+lateinit var cleverbotKey: String
+
 fun main(args: Array<String>) {
-    System.setProperty("webdriver.chrome.driver", args[0])
+    cleverbotKey = args[0]
 
     port(getHerokuAssignedPort())
     val staticFileHandler = StaticFilesConfiguration()
@@ -58,8 +58,6 @@ class GeicoBot {
         databaseSetup()
         spotifyCallback()
         profile()
-
-        scraper = getNewScraper()
     }
 
 }
