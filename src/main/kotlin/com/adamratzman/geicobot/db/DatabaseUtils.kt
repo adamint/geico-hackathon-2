@@ -4,6 +4,7 @@ import com.adamratzman.geicobot.connection
 import com.adamratzman.geicobot.gson
 import com.adamratzman.geicobot.r
 import com.adamratzman.spotify.SpotifyClientAPI
+import java.lang.IllegalArgumentException
 
 fun databaseSetup() {
     if (!r.dbList().run<List<String>>(connection).contains("geico")) {
@@ -17,16 +18,18 @@ fun databaseSetup() {
     }
 }
 
-fun getUser(id: String, api: SpotifyClientAPI): User {
+fun getUser(id: String, api: SpotifyClientAPI?): User {
     var user = asPojo(gson, r.db("geico").table("users").get(id).run(connection), User::class.java)
     if (user == null) {
-        user = User(
-            id,
-            api.users.getUserProfile().complete().images.firstOrNull()?.url
-                ?: "https://i.pinimg.com/originals/d7/32/9c/d7329cf5916dd6914ef1654f7379ea86.jpg",
-            api.personalization.getTopTracks(limit = 10).complete()
-        )
-        insert("users", user)
+        if (api != null) {
+            user = User(
+                id,
+                api.users.getUserProfile().complete().images.firstOrNull()?.url
+                    ?: "https://i.pinimg.com/originals/d7/32/9c/d7329cf5916dd6914ef1654f7379ea86.jpg",
+                api.personalization.getTopTracks(limit = 10).complete()
+            )
+            insert("users", user)
+        } else throw IllegalArgumentException()
     }
 
     return user
