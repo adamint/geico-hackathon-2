@@ -4,6 +4,27 @@ html, a, nav, li {
     text-transform: none !important;
 }
 
+/* Testing Animation */
+
+.wrap-2{
+    position:fixed;
+    z-index:-30;
+    top:0;
+    left:0;
+    overflow:hidden;
+    height:100vh;
+    width:100vw;
+    margin:auto;
+        background: -webkit-gradient(linear, left top, right bottom, from(#04c759), to(#154d23));
+    background: linear-gradient(to bottom right, #04c759, #154d23);
+}
+canvas{
+    width:100%;
+    height:100%;
+}
+
+/* End Animation */
+
 #output a {
     color: #ffffff;
     text-decoration: underline;
