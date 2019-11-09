@@ -15,8 +15,8 @@ fun GeicoBot.favorites() {
     path("/favorites") {
         get("") { request, response ->
             if (!assureLoggedIn(request, response)) return@get ""
-            val map = getMap(request, "Favorites", "favorites", true)
             val user = request.session().getUser()
+            val map = getMap(request, "Favorites", "favorites", user.favoriteTracks.size < 5)
             map["favorites"] = user.favoriteTracks
                 .map {
                     val track = request.session().getSpotifyApi().tracks.getTrack(it.first).complete()
@@ -38,6 +38,7 @@ fun GeicoBot.favorites() {
             user.favoriteTracks.add(
                 request.params(":trackId") to System.currentTimeMillis()
             )
+            user.favoriteTracks.removeIf { pair -> user.favoriteTracks.count { it.first == pair.first } > 1 }
 
             update("users", user.id, user)
 

@@ -40,7 +40,6 @@ dependencies {
     compile 'org.reflections:reflections:0.9.11'
     compile 'com.github.marlonlom:timeago:4.0.1'
     compile 'com.github.adamint:spotify-web-api-kotlin:9760c92286'
-
 }
 
 compileKotlin {

@@ -5,6 +5,7 @@ import com.adamratzman.geicobot.db.getUser
 import com.adamratzman.geicobot.db.update
 import com.adamratzman.spotify.SpotifyClientAPI
 import com.adamratzman.spotify.SpotifyScope
+import com.adamratzman.spotify.models.*
 import com.adamratzman.spotify.spotifyAppApi
 import com.adamratzman.spotify.spotifyClientApi
 import spark.Request
@@ -53,5 +54,13 @@ fun assureLoggedIn(request: Request, response: Response): Boolean {
     }
 }
 
-fun Session.getUser():User = getUser(attribute<String>("userId"), getSpotifyApi())
+fun Session.getUser(): User = getUser(attribute<String>("userId"), getSpotifyApi())
 fun Session.getSpotifyApi() = attribute<SpotifyClientAPI>("spotify")
+
+fun Track.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"
+fun SimpleAlbum.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"
+fun Album.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"
+fun SimplePlaylist.fancyString() = "$name (${tracks.total} tracks) by ${owner.displayName?.let { "${owner.displayName} (${owner.id})" } ?: owner.id}"
+fun Playlist.fancyString() = "$name (${tracks.total} tracks) by ${owner.displayName?.let { "${owner.displayName} (${owner.id})" } ?: owner.id}"
+
+fun SpotifyClientAPI.currentlyPlaying() = this.player.getCurrentlyPlaying().complete()

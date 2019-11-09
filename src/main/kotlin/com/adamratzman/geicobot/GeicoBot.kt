@@ -1,5 +1,6 @@
 package com.adamratzman.geicobot
 
+import com.adamratzman.geicobot.db.User
 import com.adamratzman.geicobot.db.databaseSetup
 import com.adamratzman.geicobot.http.*
 import com.adamratzman.geicobot.spotify.getUser
@@ -68,8 +69,9 @@ class GeicoBot {
         userProfiles()
         friends()
         favorites()
+        misc()
+        spotifyViews()
     }
-
 }
 
 private fun registerHelpers() {
@@ -81,6 +83,11 @@ private fun registerHelpers() {
         if (options.params[0].toString().equals(first?.toString(), true)) {
             options.fn()
         } else options.inverse()
+    }
+
+    handle.registerHelper("isfriend") { first: User,options: Options ->
+        if (first.friends.contains((options.params[0] as User).id)) options.fn()
+        else options.inverse()
     }
 }
 

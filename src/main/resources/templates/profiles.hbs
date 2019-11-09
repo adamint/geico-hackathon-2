@@ -8,12 +8,17 @@
 
     <div class="uk-child-width-expand" uk-grid>
         {{#each users}}
-            <div class="uk-text-center uk-width-1-4"
+            <div class="uk-text-center uk-width-auto"
                  style="align-items: center; margin-top: 16px; margin-bottom: 16px;">
                 <h2 class="uk-text-center" style="padding: 0px; text-align: center; margin: 0;"><b>{{id}}</b></h2>
                 <img class="profileImg" src="{{profileImage}}">
                 <p>Last active: {{lastActiveString}}</p>
-                <p><a href="/friendRequest/{{id}}">Send me</a> a friend request</p>
+                <p>
+                {{#isfriend user this}}You're friends with this user!
+                {{else}}
+                    <a href="/friends/request/{{id}}">Send me</a> a friend request
+                {{/isfriend}}
+                </p>
             </div>
         {{/each}}
     </div>

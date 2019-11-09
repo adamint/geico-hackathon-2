@@ -22,7 +22,7 @@ html, a, nav, li {
 
 /* Left (chatbot) pane */
 .left {
-    width: 70%;
+    width: 65%;
     display: flex;
     flex-direction: column;
 }
@@ -59,7 +59,7 @@ html, a, nav, li {
 
 /* Chatbot output textbox */
 #output {
-    height: 400px;
+    height: 450px;
     overflow-y: scroll;
     overflow: hidden;
 }
