@@ -15,7 +15,7 @@ jar {
     zip64=true
 
     manifest {
-        attributes "Main-Class": "MainKt"
+        attributes "Main-Class": "com.adamratzman.geicobot.GeicoBotKt"
     }
 
     from {
