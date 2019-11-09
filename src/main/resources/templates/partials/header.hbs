@@ -61,8 +61,6 @@
                     <li {{#ifeq page "home"}}class="uk-active"{{/ifeq}}><a href="/">Home</a></li>
                     <li {{#ifeq page "bot"}}class="uk-active"{{/ifeq}}><a href="/bot">Bot</a></li>
                     <li {{#ifeq page "profiles"}}class="uk-active"{{/ifeq}}><a href="/profiles">Profiles</a></li>
-                    {{#if profile}}
-                        <li {{#ifeq page "profile"}}class="uk-active"{{/ifeq}}><a href="/profile">My Profile</a></li>{{/if}}
                 </ul>
             </div>
         </div>
@@ -81,21 +79,9 @@
                 </li>
                 <li>
                     <div class="uk-navbar-item bold rem-1">
-                        <a class="black disable-link-highlighting" href="/player">Player</a>
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-navbar-item bold rem-1">
                         <a class="black disable-link-highlighting" href="/profiles">User Profiles</a>
                     </div>
                 </li>
-                {{#if profile}}
-                    <li>
-                        <div class="uk-navbar-item bold rem-1">
-                            <a class="black disable-link-highlighting" href="/profile">My Profile</a>
-                        </div>
-                    </li>
-                {{/if}}
                 <li>
                     <div class="uk-navbar-item bold rem-1">
                         <a class="uk-margin-small-right" href="/github"><img
