@@ -25,7 +25,7 @@
                     <input id="message" type="text" placeholder="Type a message here..."
                            class="uk-input uk-width-2-3 uk-inline uk-margin-small-right">
                     {{!-- {{Send Button}} --}}
-                    <button class="uk-button uk-button-primary uk-width-auto" onclick="post()">Send</button>
+                    <button class="uk-button uk-button-primary uk-width-auto" style="background-color: #55C165;" onclick="post()">Send</button>
                 </div>
 
                 <br />
@@ -93,7 +93,7 @@
                 function (data) {
                     if (data.status !== "") {
                         $("#nothing").remove();
-                        var result = $("<p id='userInput' class='uk-margin-remove-bottom uk-margin-remove-top' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p> <p id='botResponse' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
+                        var result = $("<p id='userInput' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p> <p id='botResponse' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
                         message.val("");
                         $("#output").append(result);
                     } else UIkit.notification(data.response, 'danger');

@@ -70,6 +70,8 @@ html, a, nav, li {
     color: white;
     background: #3FC6DB;
     padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     margin: 8px;
     border-radius: 20px;
     width: 50%;
@@ -80,6 +82,8 @@ html, a, nav, li {
     color: white !important;
     background: #55C165;
     padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     margin: 8px;
     border-radius: 20px;
     width: 50%;
