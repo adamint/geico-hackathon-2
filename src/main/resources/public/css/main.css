@@ -4,23 +4,28 @@ html, a, nav, li {
     text-transform: none !important;
 }
 
+/* Make sure the navbar stays above the chatbot and profile info */
 #header {
     position: relative !important;
     padding-right: 72px;
 }
 
+/**/
 .content {
     padding-top: 24px;
+    padding-bottom: 24px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
 }
 
+/* Left (chatbot) pane */
 .left {
     width: 70%;
 }
 
+/* Right (mini-profile) pane container */
 .right {
     display: flex;
     flex-direction: column;
@@ -31,11 +36,13 @@ html, a, nav, li {
     height: 100%;
 }
 
+/* Content of profile sidebar */
 .profileSidebar {
     display: flex;
     flex-direction: column;
 }
 
+/* Profile sidebar image */
 .profileImg {
     width: 150px;
     height: 150px;
@@ -43,16 +50,22 @@ html, a, nav, li {
     border-radius: 50%;
 }
 
+/* Chatbot output textbox */
 #output {
-    height: 80%;
+    height: 300px;
     overflow-y: scroll;
+    overflow: hidden;
 }
 
+/* Container for input box & send button */
 #inputUI {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
+
+
+/* BELOW: Default CSS stuff */
 
 @media only screen and (max-width: 1200px) {
     html {
