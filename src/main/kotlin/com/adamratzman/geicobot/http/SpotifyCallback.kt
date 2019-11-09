@@ -15,7 +15,7 @@ fun GeicoBot.spotifyCallback() {
                 credentials {
                     clientId = sId
                     clientSecret = sPassword
-                    redirectUri = "http://localhost/spotify-callback"
+                    redirectUri = "http://localhost:8080/spotify-callback"
                 }
                 authorization {
                     authorizationCode = code

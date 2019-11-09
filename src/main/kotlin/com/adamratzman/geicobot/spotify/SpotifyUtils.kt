@@ -23,7 +23,7 @@ val authorizationUrl = spotifyClientApi {
     credentials {
         clientId = sId
         clientSecret = sPassword
-        redirectUri = "http://localhost/spotify-callback"
+        redirectUri = "http://localhost:8080/spotify-callback"
     }
 }.getAuthorizationUrl(
     SpotifyScope.PLAYLIST_READ_PRIVATE,
