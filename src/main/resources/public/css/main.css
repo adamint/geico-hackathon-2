@@ -4,6 +4,55 @@ html, a, nav, li {
     text-transform: none !important;
 }
 
+#header {
+    position: relative !important;
+}
+
+.content {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.left {
+    width: 70%;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    color: white;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+.profileSidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileImg {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#output {
+    height: 80%;
+    overflow-y: scroll;
+}
+
+#inputUI {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
 @media only screen and (max-width: 1200px) {
     html {
         font-size: 2em;

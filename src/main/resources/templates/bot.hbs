@@ -1,53 +1,69 @@
 {{!-- {{Header}} --}}
 {{> partials/header.hbs }}
 
-{{!-- {{Title, Subtitle}} --}}
-<div class="uk-padding-remove-bottom" style="margin-top: 6.5%">
-    <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center">{{botName}}</h2>
-    <p class="light uk-margin-small-top uk-text-center">See some
-        <a class="bold" href="#examples-modal" uk-toggle>examples</a>
-        of what I can do for you!</p>
+{{!-- {{Flexbox Container for Bot & Side Profile}} --}}
+<div class="content">
 
-    {{!-- {{Chat Box}} --}}
-    <div id="output" class="uk-margin-auto uk-margin-small-bottom uk-width-1-2"
-         style="overflow-y: scroll; border: 1px dotted black; height: 45%">
-        <h3 id="nothing">Send me a message below..</h3>
-    </div>
+    <div class="left">
+        {{!-- {{Title, Subtitle, Chatbox, Input Box}} --}}
+        <div class="uk-padding-remove-bottom" style="margin-top: 6.5%">
+            <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center">{{botName}}</h2>
+            <p class="light uk-margin-small-top uk-text-center">See some
+                <a class="bold" href="#examples-modal" uk-toggle>examples</a>
+                of what I can do for you!</p>
 
-{{!-- {{Input Box}} --}}
-    <div id="input" class="uk-width-1-2 uk-margin-auto">
-        <div class="uk-margin-small-bottom">
-            <p class="uk-inline uk-margin-small-right uk-margin-auto-vertical"><b>Input</b></p>
-            <input id="message" type="text" placeholder="Type a message here..."
-                   class="uk-input uk-width-2-3 uk-inline uk-margin-small-right">
-            {{!-- {{Send Button}} --}}
-            <button class="uk-button uk-button-primary uk-width-auto" onclick="post()">Send</button>
+            {{!-- {{Chat Box}} --}}
+            <div id="output" class="uk-margin-auto uk-margin-small-bottom uk-width-1-2"
+                 style="overflow-y: scroll; border: 1px dotted black;">
+                <h3 id="nothing">Send me a message below..</h3>
+            </div>
+
+            {{!-- {{Input Box}} --}}
+            <div id="input" class="uk-width-1-2 uk-margin-auto">
+                <div id="inputUI" class="uk-margin-small-bottom">
+                    <p class="uk-inline uk-margin-small-right uk-margin-auto-vertical"><b>Input</b></p>
+                    <input id="message" type="text" placeholder="Type a message here..."
+                           class="uk-input uk-width-2-3 uk-inline uk-margin-small-right">
+                    {{!-- {{Send Button}} --}}
+                    <button class="uk-button uk-button-primary uk-width-auto" onclick="post()">Send</button>
+                </div>
+
+                <br />
+                {{!-- {{Clear Button}} --}}
+
+            </div>
+
+            <br />
+            <br/>
+            <br/>
         </div>
 
-        <br />
-        {{!-- {{Clear Button}} --}}
-        <button name="Clear" class="uk-button uk-button-primary" onclick="clearOutput();">Clear</button>
+        {{!-- {{Examples Modal Popup}} --}}
+        <div id="examples-modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Examples</h2>
+                <ul class="uk-list uk-list-bullet">
+                    {{#each examples}}
+                        <li><b>{{first}}</b>: {{second}}</li>
+                    {{/each}}
+                </ul>
+
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
+                </p>
+            </div>
+        </div>
     </div>
 
-    <br />
-    <br/>
-    <br/>
-</div>
-
-<div id="examples-modal" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Examples</h2>
-        <ul class="uk-list uk-list-bullet">
-            {{#each examples}}
-                <li><b>{{first}}</b>: {{second}}</li>
-            {{/each}}
-        </ul>
-
-        <p class="uk-text-right">
-            <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
-        </p>
+    <div class="right">
+        {{> partials/profileSidebar.hbs}}
     </div>
+
+
 </div>
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -61,8 +77,10 @@
     }
 
     {{!-- {{TODO: Fix enter/return press for submitting text input, currently does not work}} --}}
-    $("#expression").keypress(function (key) {
-        if (key.which === 13) post()
+    $("#message").keydown(function(key) {
+        if (key.which == 13) {
+            post()
+        }
     });
 
     {{!-- {{Sends text input to the AI}} --}}
