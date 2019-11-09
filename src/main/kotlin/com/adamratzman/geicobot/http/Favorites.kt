@@ -17,6 +17,7 @@ fun GeicoBot.favorites() {
             if (!assureLoggedIn(request, response)) return@get ""
             val user = request.session().getUser()
             val map = getMap(request, "Favorites", "favorites", user.favoriteTracks.size < 5)
+            map["noFavorites"] = user.favoriteTracks.isEmpty()
             map["favorites"] = user.favoriteTracks
                 .map {
                     val track = request.session().getSpotifyApi().tracks.getTrack(it.first).complete()

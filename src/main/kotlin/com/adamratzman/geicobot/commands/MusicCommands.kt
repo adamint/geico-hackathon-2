@@ -225,3 +225,54 @@ class TopTracks : Command(Category.MUSIC, "toptracks", "see your top songs", "le
         }
     }
 }
+
+@AutowiredCommand
+class PlaySong : Command(Category.MUSIC, "playsong", "play a song", "lex.playsong") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val query = input.trim()
+        if (query.isEmpty()) consumer("Song cannot be empty")
+        else {
+            val api = session.getSpotifyApi()
+            val searchItems = api.search.searchTrack(input.trim(), limit = 1).complete().items
+            if (searchItems.isEmpty()) consumer("No song found by that name")
+            else {
+                val track = searchItems.first()
+                consumer("<iframe class=\"uk-margin-auto\" src=\"https://open.spotify.com/embed/track/${track.id}\" width=\"250\" height=\"80\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>\n")
+            }
+        }
+    }
+}
+
+@AutowiredCommand
+class PlayArtist : Command(Category.MUSIC, "playartist", "play an artist's top songs", "lex.playartist") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val query = input.trim()
+        if (query.isEmpty()) consumer("Artist cannot be empty")
+        else {
+            val api = session.getSpotifyApi()
+            val searchItems = api.search.searchArtist(input.trim(), limit = 1).complete().items
+            if (searchItems.isEmpty()) consumer("No artist found by that name")
+            else {
+                val artist = searchItems.first()
+                consumer("<iframe class=\"uk-margin-auto\" src=\"https://open.spotify.com/embed/artist/${artist.id}\" width=\"250\" height=\"80\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>\n")
+            }
+        }
+    }
+}
+
+@AutowiredCommand
+class PlayAlbum : Command(Category.MUSIC, "playalbum", "play an album", "lex.playalbum") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val query = input.trim()
+        if (query.isEmpty()) consumer("Album name cannot be empty")
+        else {
+            val api = session.getSpotifyApi()
+            val searchItems = api.search.searchAlbum(input.trim(), limit = 1).complete().items
+            if (searchItems.isEmpty()) consumer("No album found by that name")
+            else {
+                val album = searchItems.first()
+                consumer("<iframe class=\"uk-margin-auto\" src=\"https://open.spotify.com/embed/album/${album.id}\" width=\"250\" height=\"80\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>\n")
+            }
+        }
+    }
+}
