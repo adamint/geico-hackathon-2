@@ -215,3 +215,21 @@ a, a:hover {
 .link-color {
     color: #149dcc
 }
+
+.optionleft:hover{
+    width:185px;
+    position:sticky;
+    top:0;
+    transition: all .5s;
+}
+
+.optionright{
+    posiiton:sticky;
+    top:0;
+}
+
+.optionright:hover{
+    width:185px;
+    position:sticky;
+    transition: width .5s;
+}
