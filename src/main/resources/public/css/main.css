@@ -59,7 +59,7 @@ html, a, nav, li {
 
 /* Chatbot output textbox */
 #output {
-    height: 450px;
+    height: 400px;
     overflow-y: scroll;
     overflow: hidden;
 }
@@ -94,8 +94,12 @@ html, a, nav, li {
     width: 50%;
     float: left;
 }
-
-
+.songTitle {
+    max-width: 270px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /* BELOW: Default CSS stuff */
 
