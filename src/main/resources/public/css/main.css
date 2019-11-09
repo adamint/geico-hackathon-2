@@ -50,6 +50,11 @@ html, a, nav, li {
     border-radius: 50%;
 }
 
+.smallPreviewImg {
+    width: 75px;
+    height: 75px;
+}
+
 /* Chatbot output textbox */
 #output {
     height: 300px;

@@ -1,0 +1,18 @@
+{{> partials/header.hbs }}
+
+<div class="uk-margin-small-top uk-section uk-section-medium uk-padding-remove-bottom">
+    <div class="uk-text-center">
+        <h2 class="moderate-bold uk-margin-small-bottom">User Profiles</h2>
+        <p class="light uk-margin-remove-top">Find new friends!</p>
+    </div>
+
+    {{#each users}}
+        <div class="uk-text-center" style="align-items: center; margin-top: 16px; margin-bottom: 16px;">
+            <h2 class="uk-text-center" style="padding: 0px; text-align: center; margin: 0;"><b>{{id}}</b>.</h2>
+            <img class="profileImg" src="{{profileImage}}">
+            <h3>Last active: {{lastActiveString}}</h3>
+        </div>
+    {{/each}}
+</div>
+
+{{> partials/footer.hbs }}

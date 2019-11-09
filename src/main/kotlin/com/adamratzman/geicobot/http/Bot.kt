@@ -3,6 +3,7 @@ package com.adamratzman.geicobot.http
 import com.adamratzman.geicobot.*
 import com.adamratzman.geicobot.chat.CleverbotResponse
 import com.adamratzman.geicobot.spotify.assureLoggedIn
+import com.adamratzman.geicobot.spotify.getSpotifyApi
 import spark.Spark.get
 import spark.Spark.path
 
@@ -16,6 +17,14 @@ fun GeicoBot.bot() {
             map["examples"] = listOf(
                 "Play a song" to "play \"song name\""
             )
+
+            val api = request.session().getSpotifyApi()
+
+            map["recentlyPlayed"] = api.player.getRecentlyPlayed(limit = 3).complete()
+                .map {
+                    val track = api.tracks.getTrack(it.track.id).complete()
+                    track to track?.artists?.joinToString(", ") { it.name }
+                }
 
             handlebars.render(map, "bot.hbs")
         }

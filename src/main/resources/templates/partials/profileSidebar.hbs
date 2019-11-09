@@ -1,13 +1,6 @@
 <div class="profileSidebar">
 
-    <h2 style="padding: 0px; text-align: center; margin: 0;">Hello.</h2>
+    <h2 class="uk-text-center" style="padding: 0px; text-align: center; margin: 0;">Hello <b>{{user.id}}</b>.</h2>
 
-    <div style="align-items: center; margin-top: 16px; margin-bottom: 16px;">
-        <img class="profileImg" src="https://images.unsplash.com/photo-1572628252713-5f0904beb2fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2160&q=80">
-    </div>
-
-    <div id="">
-        <h3>Recently Played</h3>
-    </div>
-
+    {{> partials/profile.hbs this }}
 </div>
