@@ -105,3 +105,14 @@
             </ul>
         </div>
     </nav>
+
+<script>
+    $(document).ready(function() {
+        console.log(window.location.pathname)
+    })
+
+    if (window.location.pathname == '/') {
+        console.log('Reached')
+        $('a').css('color', 'white')
+    }
+</script>

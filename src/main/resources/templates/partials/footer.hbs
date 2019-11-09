@@ -13,3 +13,15 @@
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        console.log(window.location.pathname)
+    })
+
+    if (window.location.pathname == '/') {
+        console.log('Reached')
+        $('footer').css('color', 'white')
+        $('a').css('color', 'white')
+    }
+</script>
