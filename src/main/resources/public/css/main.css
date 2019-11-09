@@ -4,6 +4,12 @@ html, a, nav, li {
     text-transform: none !important;
 }
 
+#output a {
+    color: #ffffff;
+    text-decoration: underline;
+    text-decoration-color: #ffffff;
+}
+
 /* Make sure the navbar stays above the chatbot and profile info */
 #header {
     position: relative !important;
