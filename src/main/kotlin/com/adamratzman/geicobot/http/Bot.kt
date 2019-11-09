@@ -34,7 +34,7 @@ fun GeicoBot.bot() {
                 "Restart song" to "Restart the current song",
                 "Move to time" to "Move to a designated point in the current song",
                 "Previous song" to "Play the previous song",
-                "Add favorite" to "Adds current song to favorites",
+                "Add favorite" to "Adds given song to favorites",
                 "View Favorites" to "View favorites list"
 
 
