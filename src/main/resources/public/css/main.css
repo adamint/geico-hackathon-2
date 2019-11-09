@@ -6,6 +6,7 @@ html, a, nav, li {
 
 #header {
     position: relative !important;
+    padding-right: 72px;
 }
 
 .content {
