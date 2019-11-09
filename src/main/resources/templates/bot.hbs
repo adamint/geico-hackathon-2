@@ -6,8 +6,8 @@
 
     <div class="left">
         {{!-- {{Title, Subtitle, Chatbox, Input Box}} --}}
-        <div class="uk-padding-remove-bottom" style="margin-top: 6.5%">
-            <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center">{{botName}}</h2>
+        <div class="uk-padding-remove-bottom" style="margin-top: 0%">
+            <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center"><b>{{botName}}</b></h2>
             <p class="light uk-margin-small-top uk-text-center">See some
                 <a class="bold" href="#examples-modal" uk-toggle>examples</a>
                 of what I can do for you!</p>
@@ -93,7 +93,7 @@
                 function (data) {
                     if (data.status !== "") {
                         $("#nothing").remove();
-                        var result = $("<p class='uk-margin-remove-bottom uk-margin-remove-top' style='font-size: 1.3rem'><b>" + message.val() + "</b> <br> <em>" + data.response + "</em></p>");
+                        var result = $("<p id='userInput' class='uk-margin-remove-bottom uk-margin-remove-top' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p> <p id='botResponse' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
                         message.val("");
                         $("#output").append(result);
                     } else UIkit.notification(data.response, 'danger');
