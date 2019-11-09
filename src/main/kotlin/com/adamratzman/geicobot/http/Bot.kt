@@ -16,7 +16,15 @@ fun GeicoBot.bot() {
             map["examples"] = listOf(
                 "Play a song" to "play \"song name\"",
                 "Flip a coin" to "Have GEICObot flip a coin",
-                "Tell me a fortune" to "Get a furtune from GEICObot"
+                "Tell me a fortune" to "Get a fortune from GEICObot",
+                "Recommend me a song" to "Get a song recommendation from GEICObot",
+                "Recommend me an artist" to "Get an artist recommendation from GEICObot",
+                "Find song" to "Have GEICObot search spotify for a song",
+                "Pause Spotify" to "Pause the current song",
+                "Resume Spotify" to "Resume paused song",
+                "Skip song" to "Skip to the next song"
+
+
             )
 
             handlebars.render(map, "bot.hbs")
