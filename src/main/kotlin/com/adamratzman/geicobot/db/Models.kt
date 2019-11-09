@@ -11,13 +11,13 @@ data class User(
     var nickname: String? = null,
     val recentlyPlayed: MutableList<RecentlyPlayed> = mutableListOf(),
     val friends: MutableList<String> = mutableListOf(),
-    val friendRequestsReceived: MutableList<String> = mutableListOf(),
-    val friendRequestsSent: MutableList<String> = mutableListOf(),
+    val friendRequestsReceived: MutableSet<String> = mutableSetOf(),
     val conversation: MutableList<Dialog> = mutableListOf(),
     var bio: String? = null
 ) {
     var lastActive: Long = System.currentTimeMillis()
     var favoriteTracks: MutableList<Pair<String, Long>> = mutableListOf()
+    //val recommendations: MutableList<Pair<String, Long>> = mutableListOf()
 
     val lastActiveString get() = TimeAgo.using(lastActive)
 }

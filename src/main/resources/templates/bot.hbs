@@ -93,14 +93,18 @@
             $("#output").empty()
             message.val("");
         } else {
+            $("#output").append($("<p id='userInput' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p>"));
+
+            var messageText = message.val();
+            message.val("");
+
             $.get(
                 "/bot/respond",
-                {input: message.val()},
+                {input: messageText},
                 function (data) {
                     if (data.status !== "") {
                         $("#nothing").remove();
-                        var result = $("<p id='userInput' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p> <p id='botResponse' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
-                        message.val("");
+                        var result = $("<p id='botResponse' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
                         $("#output").append(result);
                         updateScroll();
                     } else UIkit.notification(data.response, 'danger');

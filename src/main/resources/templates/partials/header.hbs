@@ -85,6 +85,18 @@
                 </li>
                 <li>
                     <div class="uk-navbar-item bold rem-1">
+                        <a class="black disable-link-highlighting" href="/friends">Friends</a>
+                    </div>
+                </li>
+                {{#if user}}
+                    <li>
+                        <div class="uk-navbar-item bold rem-1">
+                            <a class="black disable-link-highlighting" href="/logout">Log out</a>
+                        </div>
+                    </li>
+                {{/if}}
+                <li>
+                    <div class="uk-navbar-item bold rem-1">
                         <a class="uk-margin-small-right" href="/github"><img
                                 src="/icons/mbr/mbri-github.svg" alt="paper-plane"></a>
                         <a class="black" href="https://github.com/adamint/geico-hackathon-2">Github</a>

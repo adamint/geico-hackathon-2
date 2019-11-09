@@ -1,0 +1,43 @@
+{{> partials/header.hbs }}
+
+<div class="uk-margin-small-top uk-section uk-section-medium uk-padding-remove-bottom">
+    <div class="uk-text-center">
+        <h2 class="moderate-bold uk-margin-small-bottom">Friends</h2>
+        <p class="light uk-margin-remove-top">p.s. The GEICO Gecko will always be your friend</p>
+    </div>
+
+    <div class="uk-width-2-3" style="margin-left: 25%">
+        {{#if hasFriendRequests}}
+            <h3>Friend Requests</h3>
+            {{#each friendRequests}}
+                <p class="uk-margin-medium-left">You received a friend request from <b>{{id}}</b>. <a href="/friends/respond/{{id}}?accept=true">Accept</a> or <a href="/friends/respond/{{id}}?accept=false">deny</a> this friend request.</p>
+            {{/each}}
+        {{/if}}
+
+        {{#if hasFriends}}
+            <h2>My Friends List</h2>
+
+            <div class="uk-margin-medium-left">
+                {{#each friends}}
+                    {{> partials/render-user-info.hbs }}
+                {{/each}}
+            </div>
+        {{else}}
+            <h4>You don't have any friends :( Make the first move and send someone a request!</h4>
+        {{/if}}
+    </div>
+
+    <div class="uk-child-width-expand" uk-grid>
+        {{#each users}}
+            <div class="uk-text-center uk-width-1-4"
+                 style="align-items: center; margin-top: 16px; margin-bottom: 16px;">
+                <h2 class="uk-text-center" style="padding: 0px; text-align: center; margin: 0;"><b>{{id}}</b></h2>
+                <img class="profileImg" src="{{profileImage}}">
+                <p>Last active: {{lastActiveString}}</p>
+                <p><a href="/friends/request/{{id}}">Send me</a> a friend request</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+{{> partials/footer.hbs }}

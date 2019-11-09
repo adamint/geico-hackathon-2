@@ -1,6 +1,7 @@
 package com.adamratzman.geicobot.commands
 
 import com.adamratzman.geicobot.db.update
+import com.adamratzman.geicobot.spotify.getSpotifyApi
 import com.adamratzman.geicobot.spotify.getUser
 import com.adamratzman.geicobot.system.*
 import software.amazon.awssdk.services.lexruntime.model.PostTextResponse
@@ -49,3 +50,24 @@ class SetBio : Command(Category.PROFILE, "set my bio to", "set your bio", "lex.s
         }
     }
 }
+
+@AutowiredCommand
+class AddFavorite : Command(Category.MUSIC, "favorite", "add a track to your favorites", "lex.addfavorite") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val split = input.splitSpaces().removeFirstItems(1)
+        if (split.isEmpty()) consumer("Invalid song!")
+        else {
+            val user = session.getUser()
+            val track = session.getSpotifyApi().search.searchTrack(split.concat()).complete().firstOrNull()
+            if (track == null) consumer("I couldn't find that track!")
+            else {
+                user.favoriteTracks.add(track.id to System.currentTimeMillis())
+                user.favoriteTracks.removeIf { pair -> user.favoriteTracks.count { it.first == pair.first } > 1 }
+                update("users", user.id, user)
+                consumer("Added <u>${track.name}</u> by ${track.artists.joinToString(", ") {it.name}} to your <a target='_blank' href='/favorites'>favorites</a>")
+            }
+        }
+    }
+}
+
+
