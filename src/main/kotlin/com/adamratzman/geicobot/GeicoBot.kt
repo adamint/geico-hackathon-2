@@ -42,6 +42,7 @@ fun main(args: Array<String>) {
         staticFileHandler.consume(request.raw(), response.raw())
     }
 
+
     Spark.exception(Exception::class.java) { exception, _, _ ->
         exception.printStackTrace()
     }

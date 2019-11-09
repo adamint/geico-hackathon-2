@@ -14,7 +14,9 @@ fun GeicoBot.bot() {
             val map = getMap(request, "Bot", "bot", true)
 
             map["examples"] = listOf(
-                "Play a song" to "play \"song name\""
+                "Play a song" to "play \"song name\"",
+                "Flip a coin" to "Have GEICObot flip a coin",
+                "Tell me a fortune" to "Get a furtune from GEICObot"
             )
 
             handlebars.render(map, "bot.hbs")
