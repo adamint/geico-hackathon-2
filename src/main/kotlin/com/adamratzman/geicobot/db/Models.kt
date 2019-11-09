@@ -4,6 +4,7 @@ import com.adamratzman.geicobot.chat.Dialog
 
 data class User(
     val id: String,
+    var nickname: String? = null,
     val recentlyPlayed: MutableList<RecentlyPlayed> = mutableListOf(),
     val friends: MutableList<String> = mutableListOf(),
     val friendRequestsReceived: MutableList<String> = mutableListOf(),

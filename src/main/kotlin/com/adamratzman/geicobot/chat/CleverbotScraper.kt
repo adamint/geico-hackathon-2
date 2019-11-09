@@ -4,10 +4,8 @@ import com.adamratzman.geicobot.cleverbotKey
 import com.michaelwflaherty.cleverbotapi.CleverBotQuery
 
 fun respond(input: String, consumer: (String) -> Unit) {
-    println(input)
     val bot = CleverBotQuery(cleverbotKey, input)
     bot.sendRequest()
-println(bot.response)
     consumer(bot.response)
 }
 

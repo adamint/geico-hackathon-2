@@ -25,7 +25,7 @@ fun GeicoBot.bot() {
             val input = request.queryParams("input")
 
             commandFactory.onMessageEvent(input, request.session()) { output ->
-                response.body(output)
+                response.body(output?.replace("\n", "<br />") ?: "null")
                 responded = true
             }
 

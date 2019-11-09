@@ -7,7 +7,6 @@ import com.adamratzman.geicobot.commands.TextCommand
 import com.adamratzman.geicobot.spotify.getUser
 import org.reflections.Reflections
 import spark.Session
-import java.lang.Exception
 import java.lang.reflect.Modifier
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -33,25 +32,22 @@ class CommandFactory {
         val user = session.getUser()
         user.conversation.add(Dialog(input, SenderType.USER))
 
-        println("hi")
-        try {
-            println("jklsdjklsdfjklfsdjklasdfkj")
-            val lexResponse = postToLex(input, session.id())
-            println(lexResponse)
-            dialogForUsers.putIfAbsent(session.id(), mutableListOf())
-            dialogForUsers[session.id()]!!.add(Dialog(input, SenderType.USER))
+        val lexResponse = postToLex(input, session.id())
 
-            val foundCommand = commands.find { command ->
-                lexResponse.message().startsWith(command.trigger)
-            } ?: commands.first { it is TextCommand }
-            println("hi2")
-            foundCommand.executeBase(input, lexResponse, session) { commandResponse ->
+        dialogForUsers.putIfAbsent(session.id(), mutableListOf())
+        dialogForUsers[session.id()]!!.add(Dialog(input, SenderType.USER))
 
-                commandResponse?.let {
-                    dialogForUsers[session.id()]!!.add(Dialog(input, SenderType.BOT))
-                }
-                consumer(commandResponse)
+        val foundCommand = commands.find { command ->
+            input.startsWith(command.name, true) ||
+                    ( lexResponse.message().startsWith(command.trigger)
+                    && commands.none { input.startsWith(it.name, true) })
+        } ?: commands.first { it is TextCommand }
+
+        foundCommand.executeBase(input, lexResponse, session) { commandResponse ->
+            commandResponse?.let {
+                dialogForUsers[session.id()]!!.add(Dialog(input, SenderType.BOT))
             }
-        }catch (e:Exception){e.printStackTrace()}
+            consumer(commandResponse)
+        }
     }
 }

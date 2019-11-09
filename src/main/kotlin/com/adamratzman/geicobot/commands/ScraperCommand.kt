@@ -10,7 +10,6 @@ import spark.Session
 @AutowiredCommand
 class ScraperCommand : Command(Category.CHAT, "scraper", "cleverbot scraper", "lex.notfound") {
     override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
-        println(input)
         try {
             respond(input) { cleverBotResponse ->
                 consumer(cleverBotResponse)

@@ -1,5 +1,6 @@
 package com.adamratzman.geicobot
 
+import com.adamratzman.geicobot.chat.respond
 import com.adamratzman.geicobot.db.databaseSetup
 import com.adamratzman.geicobot.http.*
 import com.adamratzman.geicobot.system.CommandFactory
@@ -104,5 +105,5 @@ fun getHerokuAssignedPort(): Int {
     val processBuilder = ProcessBuilder()
     return if (processBuilder.environment()["PORT"] != null) {
         Integer.parseInt(processBuilder.environment()["PORT"])
-    } else 80
+    } else 8080
 }
