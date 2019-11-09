@@ -6,7 +6,10 @@ import com.adamratzman.geicobot.db.update
 import com.adamratzman.geicobot.getMap
 import com.adamratzman.geicobot.handlebars
 import com.adamratzman.geicobot.spotify.assureLoggedIn
+import com.adamratzman.geicobot.spotify.fancyString
 import com.adamratzman.geicobot.spotify.getUser
+import com.adamratzman.geicobot.spotify.spotifyApi
+import com.github.marlonlom.utilities.timeago.TimeAgo
 import spark.Spark.get
 import spark.Spark.path
 
@@ -22,6 +25,16 @@ fun GeicoBot.friends() {
             map["friends"] = friends
             map["hasFriendRequests"] = user.friendRequestsReceived.isNotEmpty()
             map["friendRequests"] = user.friendRequestsReceived.map { getUser(it, null) }
+
+            val friendFeed = friends.map { friend ->
+                friend.recommendations.map { recommendation ->
+                    friend to Triple(spotifyApi.tracks.getTrack(recommendation.first).complete(), TimeAgo.using(recommendation.second),recommendation.second)
+                }
+            }.flatten().sortedByDescending { it.second.third }.map { it.first to Triple(it.second.first, it.second.second, it.second.first?.fancyString()) }
+
+            map["hasFriendFeed"] = friendFeed.isNotEmpty()
+            map["friendFeed"] = friendFeed
+            if (friendFeed.isNotEmpty()) map["position-bottom"] = false
 
             handlebars.render(map, "friends.hbs")
         }

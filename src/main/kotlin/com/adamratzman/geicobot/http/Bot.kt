@@ -10,7 +10,6 @@ import com.adamratzman.geicobot.spotify.getSpotifyApi
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import spark.Spark.get
 import spark.Spark.path
-import java.time.Instant
 
 fun GeicoBot.bot() {
     path("/bot") {
@@ -38,12 +37,17 @@ fun GeicoBot.bot() {
             )
 
             val api = request.session().getSpotifyApi()
-
-            map["recentlyPlayed"] = api.player.getRecentlyPlayed(limit = 3).complete()
-                .map {
-                    val track = api.tracks.getTrack(it.track.id).complete()
-                    arrayOf(track, track?.artists?.joinToString(", ") { it.name }, user.favoriteTracks.any { it.first == track?.id })
-                }
+            try {
+                map["recentlyPlayed"] = api.player.getRecentlyPlayed(limit = 3).complete()
+                    .map {
+                        val track = api.tracks.getTrack(it.track.id).complete()
+                        arrayOf(
+                            track,
+                            track?.artists?.joinToString(", ") { it.name },
+                            user.favoriteTracks.any { it.first == track?.id })
+                    }
+            } catch (ignored: Exception) {
+            }
 
             handlebars.render(map, "bot.hbs")
         }

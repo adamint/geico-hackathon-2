@@ -10,7 +10,9 @@
         {{#if hasFriendRequests}}
             <h3>Friend Requests</h3>
             {{#each friendRequests}}
-                <p class="uk-margin-medium-left">You received a friend request from <b>{{id}}</b>. <a href="/friends/respond/{{id}}?accept=true">Accept</a> or <a href="/friends/respond/{{id}}?accept=false">deny</a> this friend request.</p>
+                <p class="uk-margin-medium-left">You received a friend request from <b>{{id}}</b>. <a
+                        href="/friends/respond/{{id}}?accept=true">Accept</a> or <a
+                        href="/friends/respond/{{id}}?accept=false">deny</a> this friend request.</p>
             {{/each}}
         {{/if}}
 
@@ -22,6 +24,29 @@
                     {{> partials/render-user-info.hbs }}
                 {{/each}}
             </div>
+
+            {{#if hasFriendFeed}}
+                <h2>Friend Feed</h2>
+
+                {{#each friendFeed}}
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <div class="uk-margin-small-left uk-margin-small-bottom">
+                            <img class="smallPreviewImg uk-inline" src="{{first.profileImage}}">
+                            <div class="uk-inline uk-margin-small-left" style="color:black;">
+                                <p style="font-weight: 500; font-size: 20px; margin-bottom: -5px;">{{#if
+                                        first.nickname}}{{first.nickname}} ({{first.id}}){{else}}{{first.id}}{{/if}}</p>
+                                <span>{{second.second}}</span>
+                            </div>
+                        </div>
+                        <div style="margin-left: 90px">
+                            <img class="uk-margin-remove-bottom" width="200px" height="200px" src="{{second.first.album.images.0.url}}">
+                            <p class="uk-margin-remove-top">Was recommended the song <u>{{second.third}}</u></p>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <h2>There aren't any recommendation posts on your Friend Feed!</h2>
+            {{/if}}
         {{else}}
             <h4>You don't have any friends :( Make the first move and send someone a request!</h4>
         {{/if}}
