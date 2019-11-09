@@ -12,6 +12,8 @@ repositories {
 }
 
 jar {
+    zip64=true
+
     manifest {
         attributes "Main-Class": "MainKt"
     }
