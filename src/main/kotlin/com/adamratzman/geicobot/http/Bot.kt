@@ -15,14 +15,17 @@ fun GeicoBot.bot() {
 
             map["examples"] = listOf(
                 "Play a song" to "play \"song name\"",
-                "Flip a coin" to "Have GEICObot flip a coin",
-                "Tell me a fortune" to "Get a fortune from GEICObot",
-                "Recommend me a song" to "Get a song recommendation from GEICObot",
-                "Recommend me an artist" to "Get an artist recommendation from GEICObot",
-                "Find song" to "Have GEICObot search spotify for a song",
+                "Flip a coin" to "Have GEICOBot flip a coin",
+                "Tell me a fortune" to "Get a fortune from GEICOBot",
+                "Recommend me a song" to "Get a song recommendation from GEICOBot",
+                "Recommend me an artist" to "Get an artist recommendation from GEICOBot",
+                "Find song" to "Have GEICOBot search Spotify for a song",
                 "Pause Spotify" to "Pause the current song",
                 "Resume Spotify" to "Resume paused song",
-                "Skip song" to "Skip to the next song"
+                "Skip song" to "Skip to the next song",
+                "Restart song" to "Restart the current song",
+                "Move to time" to "Move to a designated point in the current song",
+                "Previous song" to "Play the previous song"
 
 
             )
