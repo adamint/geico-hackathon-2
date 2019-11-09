@@ -23,7 +23,7 @@ class Help : Command(Category.BOT_INFO, "help", "see a list of commands you can 
             }
         }
         if (text.isEmpty()) {
-            if (!input.equals("help", true)) text += "No command was found with name $name - showing default help menu instead\n"
+            if (!input.equals("help", true)) text += "No command was found with name ${name.removePrefix("help").trim()} - showing default help menu instead\n"
             Category.values().forEach { category ->
                 text += "<i>${category.fancyName}</i> : " + category.getCommands().toMutableList().shuffled()
                     .map { "`" + it.name + "`" }.stream().collect(Collectors.joining("    ")) +

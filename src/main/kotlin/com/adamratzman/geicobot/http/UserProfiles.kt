@@ -15,6 +15,7 @@ fun GeicoBot.userProfiles() {
         val map = getMap(request, "User Profiles", "profiles", true)
         val users = getUsers()
         map["users"] = users.filter { it.id != request.session().getSpotifyApi().userId }
+            .sortedByDescending { it.lastActive }
 
         handlebars.render(map, "profiles.hbs")
     }
