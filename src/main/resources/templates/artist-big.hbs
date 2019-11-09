@@ -1,0 +1,15 @@
+{{> partials/header.hbs }}
+
+<div class="uk-margin-small-top uk-section uk-section-medium uk-padding-remove-bottom">
+    <div class="uk-text-center">
+        <h2 class="moderate-bold uk-margin-small-bottom">Artist <b>{{artist.name}}</b></h2>
+        <p class="light uk-margin-remove-top">Popularity: {{artist.popularity}}</p>
+    </div>
+
+    <div class="uk-text-center">
+        <img width="300px" height="300px" style="display: block;margin-left: auto; margin-right: auto;" src="{{artwork}}">
+        <iframe class="uk-margin-auto" src="https://open.spotify.com/embed/artist/{{artist.id}}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
+</div>
+
+{{> partials/footer.hbs }}

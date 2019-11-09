@@ -1,11 +1,12 @@
 package com.adamratzman.geicobot.commands
 
-import com.adamratzman.geicobot.db.update
 import com.adamratzman.geicobot.spotify.currentlyPlaying
 import com.adamratzman.geicobot.spotify.fancyString
 import com.adamratzman.geicobot.spotify.getSpotifyApi
 import com.adamratzman.geicobot.spotify.getUser
-import com.adamratzman.geicobot.system.*
+import com.adamratzman.geicobot.system.AutowiredCommand
+import com.adamratzman.geicobot.system.Category
+import com.adamratzman.geicobot.system.Command
 import software.amazon.awssdk.services.lexruntime.model.PostTextResponse
 import spark.Session
 
@@ -22,11 +23,23 @@ class Play : Command(Category.MUSIC, "play", "play songs, playlists, or your per
 }*/
 
 @AutowiredCommand
+class PlayFavorites : Command(Category.MUSIC, "playfavorites", "play your favorite tracks", "lex.playfavorites") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val api = session.getSpotifyApi()
+        val user = session.getUser()
+        api.player.startPlayback(tracksToPlay = *user.favoriteTracks.map { it.first }.toTypedArray())
+            .queue({ consumer("Added your favorite tracks (${user.favoriteTracks.size}) to the queue") },
+                { consumer("Failed to play: ${it.message}") })
+    }
+}
+
+@AutowiredCommand
 class Pause : Command(Category.MUSIC, "pause", "pause Spotify playback", "lex.pausetrack") {
     override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
         val api = session.getSpotifyApi()
-        api.player.pause().queue({ consumer("Paused ${api.currentlyPlaying()?.track?.fancyString() ?: "unknown track"}!") },
-            { consumer("Failed to pause playback: ${it.message}") })
+        api.player.pause()
+            .queue({ consumer("Paused ${api.currentlyPlaying()?.track?.fancyString() ?: "unknown track"}!") },
+                { consumer("Failed to pause playback: ${it.message}") })
     }
 }
 
@@ -34,7 +47,11 @@ class Pause : Command(Category.MUSIC, "pause", "pause Spotify playback", "lex.pa
 class Resume : Command(Category.MUSIC, "resume", "resume Spotify playback", "lex.resumetrack") {
     override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
         val api = session.getSpotifyApi()
-        api.player.resume().queue({ consumer("Resumed playback of ${api.player.getCurrentlyPlaying().complete()?.track?.name ?: "unknown track"}!") },
+        api.player.resume().queue({
+            consumer(
+                "Resumed playback of ${api.player.getCurrentlyPlaying().complete()?.track?.name ?: "unknown track"}!"
+            )
+        },
             { consumer("Failed to resume playback: ${it.message}") })
     }
 }
@@ -69,7 +86,8 @@ class PreviousSong : Command(Category.MUSIC, "previoussong", "play the previous 
 }
 
 @AutowiredCommand
-class MoveToTime : Command(Category.MUSIC, "movetotime", "move to a different time (in seconds) in the track", "lex.movetotime") {
+class MoveToTime :
+    Command(Category.MUSIC, "movetotime", "move to a different time (in seconds) in the track", "lex.movetotime") {
     override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
         val time = input.replace("seconds", "").trim().toLongOrNull()
         if (time == null) consumer("You need to put in a time!")
@@ -78,6 +96,17 @@ class MoveToTime : Command(Category.MUSIC, "movetotime", "move to a different ti
             api.player.seek(time * 1000).queue({ consumer("Starting playback at $time seconds..") },
                 { consumer("Failed to restart: ${it.message}") })
         }
+    }
+}
+
+@AutowiredCommand
+class CurrentlyPlaying :
+    Command(Category.MUSIC, "currentlyplaying", "see what song is currently playing", "lex.currentlyplaying") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val api = session.getSpotifyApi()
+        api.player.getCurrentlyPlaying().complete()?.track?.fancyString()?.let {
+            consumer("$it")
+        } ?: consumer("There's no currently playing track")
     }
 }
 
@@ -142,3 +171,57 @@ class FindPlaylist : Command(Category.MUSIC, "findplaylist", "find a playlist", 
     }
 }
 
+
+@AutowiredCommand
+class FindArtist : Command(Category.MUSIC, "findartist", "find an artist", "lex.findartist") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        if (input.isBlank()) consumer("You provided an invalid artist name")
+        else {
+            val api = session.getSpotifyApi()
+            val searchItems = api.search.searchArtist(input.trim(), limit = 3).complete().items
+            if (searchItems.isEmpty()) consumer("No artist found by that name")
+            else {
+                var sb = "Found ${searchItems.size} artists"
+                searchItems.forEach { artist ->
+                    sb += "\n<a target='_blank' href='/artist/${artist.id}'>${artist.name}</a>"
+                }
+
+                consumer(sb)
+            }
+        }
+    }
+}
+
+@AutowiredCommand
+class TopArtists : Command(Category.MUSIC, "topartists", "see your top artists", "lex.topartists") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val api = session.getSpotifyApi()
+        val searchItems = api.personalization.getTopArtists(limit = 5).complete().items
+        if (searchItems.isEmpty()) consumer("No top artists found")
+        else {
+            var sb = "Your top ${searchItems.size} artists"
+            searchItems.forEach { artist ->
+                sb += "\n<a target='_blank' href='/artist/${artist.id}'>${artist.name}</a>"
+            }
+
+            consumer(sb)
+        }
+    }
+}
+
+@AutowiredCommand
+class TopTracks : Command(Category.MUSIC, "toptracks", "see your top songs", "lex.toptracks") {
+    override fun executeBase(input: String, response: PostTextResponse, session: Session, consumer: (String?) -> Unit) {
+        val api = session.getSpotifyApi()
+        val searchItems = api.personalization.getTopTracks(limit = 5).complete().items
+        if (searchItems.isEmpty()) consumer("No top tracks found")
+        else {
+            var sb = "Your top ${searchItems.size} tracks"
+            searchItems.forEach { track ->
+                sb += "\n<a target='_blank' href='/track/${track.id}'>${track.fancyString()}</a>"
+            }
+
+            consumer(sb)
+        }
+    }
+}

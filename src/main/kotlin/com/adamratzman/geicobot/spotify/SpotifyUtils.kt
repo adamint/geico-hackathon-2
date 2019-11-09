@@ -57,6 +57,7 @@ fun assureLoggedIn(request: Request, response: Response): Boolean {
 fun Session.getUser(): User = getUser(attribute<String>("userId"), getSpotifyApi())
 fun Session.getSpotifyApi() = attribute<SpotifyClientAPI>("spotify")
 
+fun SimpleTrack.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"
 fun Track.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"
 fun SimpleAlbum.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"
 fun Album.fancyString() = "$name by ${artists.joinToString(", ") { it.name }}"

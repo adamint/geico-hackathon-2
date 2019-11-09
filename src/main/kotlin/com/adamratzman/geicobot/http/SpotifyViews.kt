@@ -44,4 +44,15 @@ fun GeicoBot.spotifyViews() {
 
         handlebars.render(map, "playlist-big.hbs")
     }
+
+    get("/artist/:id") { request, response ->
+        if (!assureLoggedIn(request, response)) return@get ""
+        val artist = request.session().getSpotifyApi().artists.getArtist(request.params(":id")).complete()!!
+        val map = getMap(request, artist.name, "playlist", true)
+        map["artist"] = artist
+        map["artwork"] = artist.images.firstOrNull()?.url
+            ?: "https://cdn4.iconfinder.com/data/icons/lyrics/154/dics-cd-music-audio-track-512.png"
+
+        handlebars.render(map, "artist-big.hbs")
+    }
 }
