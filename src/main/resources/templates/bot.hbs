@@ -102,13 +102,17 @@
                         var result = $("<p id='userInput' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p> <p id='botResponse' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
                         message.val("");
                         $("#output").append(result);
+                        updateScroll();
                     } else UIkit.notification(data.response, 'danger');
                 },
                 "json"
             )
         }
+    }
 
-
+    function updateScroll() {
+        let element = $("#output");
+        element.scrollTop(element[0].scrollHeight);
     }
 </script>
 
