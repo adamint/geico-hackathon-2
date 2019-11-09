@@ -3,6 +3,7 @@ package com.adamratzman.geicobot.http
 import com.adamratzman.geicobot.*
 import com.adamratzman.geicobot.chat.CleverbotResponse
 import com.adamratzman.geicobot.chat.SenderType
+import com.adamratzman.geicobot.db.User
 import com.adamratzman.geicobot.db.getUser
 import com.adamratzman.geicobot.spotify.assureLoggedIn
 import com.adamratzman.geicobot.spotify.getSpotifyApi
@@ -18,6 +19,8 @@ fun GeicoBot.bot() {
 
             val map = getMap(request, "Bot", "bot", true)
 
+            val user = map["user"] as User
+
             map["examples"] = listOf(
                 "Play a song" to "play \"song name\""
             )
@@ -27,7 +30,7 @@ fun GeicoBot.bot() {
             map["recentlyPlayed"] = api.player.getRecentlyPlayed(limit = 3).complete()
                 .map {
                     val track = api.tracks.getTrack(it.track.id).complete()
-                    track to track?.artists?.joinToString(", ") { it.name }
+                    arrayOf(track, track?.artists?.joinToString(", ") { it.name }, user.favoriteTracks.any { it.first.id == track?.id })
                 }
 
             handlebars.render(map, "bot.hbs")

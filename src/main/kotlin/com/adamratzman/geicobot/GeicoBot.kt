@@ -65,6 +65,8 @@ class GeicoBot {
         spotifyCallback()
         profile()
         userProfiles()
+        friendRequests()
+        favorites()
     }
 
 }

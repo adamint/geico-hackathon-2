@@ -1,1 +1,1 @@
-docker run -d -p 28015:28015 --name rethinkdb rethinkdb
+docker run -d -p 28015:28015 -p 8081:8080 --name rethinkdb rethinkdb

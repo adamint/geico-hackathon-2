@@ -17,6 +17,7 @@ data class User(
     var bio: String? = null
 ) {
     var lastActive: Long = System.currentTimeMillis()
+    var favoriteTracks: MutableList<Pair<Track, Long>> = mutableListOf()
 
     val lastActiveString get() = TimeAgo.using(lastActive)
 }
