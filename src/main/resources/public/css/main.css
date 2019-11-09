@@ -23,6 +23,8 @@ html, a, nav, li {
 /* Left (chatbot) pane */
 .left {
     width: 70%;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Right (mini-profile) pane container */
@@ -67,6 +69,26 @@ html, a, nav, li {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+#userInput {
+    color: white;
+    background: #3FC6DB;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 20px;
+    width: 50%;
+    float: right;
+}
+
+#botResponse {
+    color: white !important;
+    background: #55C165;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 20px;
+    width: 50%;
+    float: left;
 }
 
 
