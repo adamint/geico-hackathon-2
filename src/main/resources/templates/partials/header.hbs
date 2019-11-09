@@ -31,6 +31,12 @@
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?9ukd8d">
+
+    <style>
+        .black:hover{
+            color:#55C165;
+        }
+     </style>
 </head>
 
 <body>
@@ -60,7 +66,7 @@
 
                 <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
                     <li {{#ifeq page "home"}}class="uk-active"{{/ifeq}}><a href="/">Home</a></li>
-                    <li {{#ifeq page "bot"}}class="uk-active"{{/ifeq}}><a href="/bot">Bot</a></li>
+                    <li {{#ifeq page "bot"}}class="uk-active"{{/ifeq}}><a href="/bot">Chatbot</a></li>
                     <li {{#ifeq page "profiles"}}class="uk-active"{{/ifeq}}><a href="/profiles">Profiles</a></li>
                 </ul>
             </div>
@@ -71,6 +77,11 @@
                 <li>
                     <div class="uk-navbar-item bold rem-1">
                         <a class="black disable-link-highlighting" href="/">Home</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="uk-navbar-item bold rem-1">
+                        <a class="black disable-link-highlighting" href="/favorites">Favorites</a>
                     </div>
                 </li>
                 <li>
