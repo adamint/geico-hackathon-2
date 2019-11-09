@@ -106,6 +106,12 @@ internal fun getMap(
     // meta
     map["description"] = botName
 
+    request.attribute("lastPage", request.attribute<String?>("currentPage") ?: "/")
+    request.attribute("currentPage", request.pathInfo())
+
+    map["lastPage"] = request.attribute("lastPage")
+    map["currentPage"] =request.attribute("currentPage")
+
     return map
 }
 

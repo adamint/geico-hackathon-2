@@ -30,7 +30,7 @@ fun GeicoBot.bot() {
             map["recentlyPlayed"] = api.player.getRecentlyPlayed(limit = 3).complete()
                 .map {
                     val track = api.tracks.getTrack(it.track.id).complete()
-                    arrayOf(track, track?.artists?.joinToString(", ") { it.name }, user.favoriteTracks.any { it.first.id == track?.id })
+                    arrayOf(track, track?.artists?.joinToString(", ") { it.name }, user.favoriteTracks.any { it.first == track?.id })
                 }
 
             handlebars.render(map, "bot.hbs")

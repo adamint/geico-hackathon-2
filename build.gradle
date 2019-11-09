@@ -39,7 +39,7 @@ dependencies {
     compile 'software.amazon.awssdk:aws-sdk-java:2.10.12'
     compile 'org.reflections:reflections:0.9.11'
     compile 'com.github.marlonlom:timeago:4.0.1'
-    compile 'com.github.adamint:spotify-web-api-kotlin:27cf3d582e'
+    compile 'com.github.adamint:spotify-web-api-kotlin:9760c92286'
 
 }
 
