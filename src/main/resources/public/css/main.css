@@ -59,7 +59,7 @@ html, a, nav, li {
 
 /* Chatbot output textbox */
 #output {
-    height: 300px;
+    height: 400px;
     overflow-y: scroll;
     overflow: hidden;
 }
