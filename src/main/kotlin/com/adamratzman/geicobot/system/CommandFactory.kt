@@ -4,6 +4,7 @@ import com.adamratzman.geicobot.chat.Dialog
 import com.adamratzman.geicobot.chat.SenderType
 import com.adamratzman.geicobot.chat.postToLex
 import com.adamratzman.geicobot.commands.TextCommand
+import com.adamratzman.geicobot.db.update
 import com.adamratzman.geicobot.spotify.getUser
 import org.reflections.Reflections
 import spark.Session
@@ -31,6 +32,7 @@ class CommandFactory {
 
         val user = session.getUser()
         user.conversation.add(Dialog(input, SenderType.USER))
+        update("users", user.id, user)
 
         val lexResponse = postToLex(input, session.id())
 
@@ -45,7 +47,9 @@ class CommandFactory {
 
         foundCommand.executeBase(input, lexResponse, session) { commandResponse ->
             commandResponse?.let {
-                dialogForUsers[session.id()]!!.add(Dialog(input, SenderType.BOT))
+                val newUser = session.getUser()
+                newUser.conversation.add(Dialog(commandResponse, SenderType.BOT))
+                update("users", newUser.id, newUser)
             }
             consumer(commandResponse)
         }

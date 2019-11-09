@@ -6,8 +6,8 @@
 
     <div class="left">
         {{!-- {{Title, Subtitle, Chatbox, Input Box}} --}}
-        <div class="uk-padding-remove-bottom" style="margin-top: 6.5%">
-            <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center">{{botName}}</h2>
+        <div class="uk-padding-remove-bottom" style="margin-top: 0%">
+            <h2 class="moderate-bold uk-margin-remove-bottom uk-text-center"><b>{{botName}}</b></h2>
             <p class="light uk-margin-small-top uk-text-center">See some
                 <a class="bold" href="#examples-modal" uk-toggle>examples</a>
                 of what I can do for you!</p>
@@ -25,7 +25,7 @@
                     <input id="message" type="text" placeholder="Type a message here..."
                            class="uk-input uk-width-2-3 uk-inline uk-margin-small-right">
                     {{!-- {{Send Button}} --}}
-                    <button class="uk-button uk-button-primary uk-width-auto" onclick="post()">Send</button>
+                    <button class="uk-button uk-button-primary uk-width-auto" style="background-color: #55C165;" onclick="post()">Send</button>
                 </div>
 
                 <br />
@@ -93,7 +93,7 @@
                 function (data) {
                     if (data.status !== "") {
                         $("#nothing").remove();
-                        var result = $("<p class='uk-margin-remove-bottom uk-margin-remove-top' style='font-size: 1.3rem'><b>" + message.val() + "</b> <br> <em>" + data.response + "</em></p>");
+                        var result = $("<p id='userInput' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + message.val() + "</b></p> <p id='botResponse' class='uk-animation-fade' style='font-size: 1.3rem;'><b>" + data.response + "</b></p>");
                         message.val("");
                         $("#output").append(result);
                     } else UIkit.notification(data.response, 'danger');

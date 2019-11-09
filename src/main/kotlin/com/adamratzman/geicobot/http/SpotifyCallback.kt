@@ -2,6 +2,7 @@ package com.adamratzman.geicobot.http
 
 import com.adamratzman.geicobot.GeicoBot
 import com.adamratzman.geicobot.db.getUser
+import com.adamratzman.geicobot.spotify.getSpotifyApi
 import com.adamratzman.geicobot.spotify.sId
 import com.adamratzman.geicobot.spotify.sPassword
 import com.adamratzman.spotify.spotifyClientApi
@@ -25,7 +26,7 @@ fun GeicoBot.spotifyCallback() {
             request.session().attribute("spotify", clientApi)
             request.session().attribute("userId", clientApi.userId)
 
-            request.session().attribute("user", getUser(clientApi.userId))
+            request.session().attribute("user", getUser(clientApi.userId,request.session().getSpotifyApi()))
         } catch (e: Exception) {
             e.printStackTrace()
         }

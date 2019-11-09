@@ -1,0 +1,22 @@
+{{> partials/header.hbs }}
+
+<div class="uk-margin-small-top uk-section uk-section-medium uk-padding-remove-bottom">
+    <div class="uk-text-center">
+        <h2 class="moderate-bold uk-margin-small-bottom">User Profiles</h2>
+        <p class="light uk-margin-remove-top">Find new friends!</p>
+    </div>
+
+    <div class="uk-child-width-expand" uk-grid>
+        {{#each users}}
+            <div class="uk-text-center uk-width-1-4"
+                 style="align-items: center; margin-top: 16px; margin-bottom: 16px;">
+                <h2 class="uk-text-center" style="padding: 0px; text-align: center; margin: 0;"><b>{{id}}</b></h2>
+                <img class="profileImg" src="{{profileImage}}">
+                <p>Last active: {{lastActiveString}}</p>
+                <p><a href="/friendRequest/{{id}}">Send me</a> a friend request</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+{{> partials/footer.hbs }}

@@ -4,22 +4,30 @@ html, a, nav, li {
     text-transform: none !important;
 }
 
+/* Make sure the navbar stays above the chatbot and profile info */
 #header {
     position: relative !important;
+    padding-right: 72px;
 }
 
+/**/
 .content {
     padding-top: 24px;
+    padding-bottom: 24px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
 }
 
+/* Left (chatbot) pane */
 .left {
     width: 70%;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Right (mini-profile) pane container */
 .right {
     display: flex;
     flex-direction: column;
@@ -30,11 +38,13 @@ html, a, nav, li {
     height: 100%;
 }
 
+/* Content of profile sidebar */
 .profileSidebar {
     display: flex;
     flex-direction: column;
 }
 
+/* Profile sidebar image */
 .profileImg {
     width: 150px;
     height: 150px;
@@ -42,16 +52,51 @@ html, a, nav, li {
     border-radius: 50%;
 }
 
-#output {
-    height: 80%;
-    overflow-y: scroll;
+.smallPreviewImg {
+    width: 75px;
+    height: 75px;
 }
 
+/* Chatbot output textbox */
+#output {
+    height: 300px;
+    overflow-y: scroll;
+    overflow: hidden;
+}
+
+/* Container for input box & send button */
 #inputUI {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
+
+#userInput {
+    color: white;
+    background: #3FC6DB;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 8px;
+    border-radius: 20px;
+    width: 50%;
+    float: right;
+}
+
+#botResponse {
+    color: white !important;
+    background: #55C165;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 8px;
+    border-radius: 20px;
+    width: 50%;
+    float: left;
+}
+
+
+/* BELOW: Default CSS stuff */
 
 @media only screen and (max-width: 1200px) {
     html {

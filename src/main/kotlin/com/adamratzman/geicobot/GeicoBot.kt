@@ -1,9 +1,10 @@
 package com.adamratzman.geicobot
 
-import com.adamratzman.geicobot.chat.respond
 import com.adamratzman.geicobot.db.databaseSetup
 import com.adamratzman.geicobot.http.*
+import com.adamratzman.geicobot.spotify.getUser
 import com.adamratzman.geicobot.system.CommandFactory
+import com.adamratzman.spotify.SpotifyClientAPI
 import com.github.jknack.handlebars.Handlebars
 import com.github.jknack.handlebars.Options
 import com.google.gson.Gson
@@ -64,6 +65,9 @@ class GeicoBot {
         databaseSetup()
         spotifyCallback()
         profile()
+        userProfiles()
+        friendRequests()
+        favorites()
     }
 
 }
@@ -94,7 +98,11 @@ internal fun getMap(
     map["spotify"] = request.session().attribute("spotify")
     map["botName"] = botName
 
-    map["profile"] = request.session().attribute<Any?>("spotify") != null
+    if (request.session().attribute<Any?>("userId") != null) {
+        val userProfile = request.session().attribute<SpotifyClientAPI?>("spotify")?.users?.getUserProfile()?.complete()
+        map["profile"] = userProfile
+        map["user"] = request.session().getUser()
+    }
 
     // meta
     map["description"] = botName

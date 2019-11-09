@@ -2,6 +2,8 @@ package com.adamratzman.geicobot.spotify
 
 import com.adamratzman.geicobot.db.User
 import com.adamratzman.geicobot.db.getUser
+import com.adamratzman.geicobot.db.update
+import com.adamratzman.spotify.SpotifyClientAPI
 import com.adamratzman.spotify.SpotifyScope
 import com.adamratzman.spotify.spotifyAppApi
 import com.adamratzman.spotify.spotifyClientApi
@@ -43,7 +45,13 @@ fun assureLoggedIn(request: Request, response: Response): Boolean {
     return if (!isLoggedIn(request)) {
         response.redirect(authorizationUrl)
         false
-    } else true
+    } else {
+        val user = request.session().getUser()
+        user.lastActive = System.currentTimeMillis()
+        update("users", user.id, user)
+        true
+    }
 }
 
-fun Session.getUser():User = getUser(attribute<String>("userId"))
+fun Session.getUser():User = getUser(attribute<String>("userId"), getSpotifyApi())
+fun Session.getSpotifyApi() = attribute<SpotifyClientAPI>("spotify")
