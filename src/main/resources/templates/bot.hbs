@@ -76,20 +76,26 @@
         $("#output").empty()
     }
 
-    {{!-- {{TODO: Fix enter/return press for submitting text input, currently does not work}} --}}
+    {{!-- {{Enter for sending text input --}}
     $("#message").keydown(function(key) {
         if (key.which == 13) {
             post()
         }
     });
 
+
+
     {{!-- {{Sends text input to the AI}} --}}
     function post() {
         var message = $("#message");
 
-        $.get("/bot/respond", {
-                    input: message.val()
-                },
+        if (message.val() == '/clear') {
+            $("#output").empty()
+            message.val("");
+        } else {
+            $.get(
+                "/bot/respond",
+                {input: message.val()},
                 function (data) {
                     if (data.status !== "") {
                         $("#nothing").remove();
@@ -97,7 +103,12 @@
                         message.val("");
                         $("#output").append(result);
                     } else UIkit.notification(data.response, 'danger');
-                }, "json")
+                },
+                "json"
+            )
+        }
+
+
     }
 </script>
 
